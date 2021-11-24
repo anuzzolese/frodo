@@ -282,14 +282,18 @@ class NAryRelationMorphism(MorphismI):
         for role in roles:
             for actor in g.objects(situation, role/RDF.type):
                 actor_iri = str(actor)
-                if actor_iri.startswith(FREDDefaults.DEFAULT_FRED_NAMESPACE) or actor == OWL.Thing:
+                if actor_iri.startswith(FREDDefaults.DEFAULT_FRED_NAMESPACE):
                     
                     local_class_id = actor_iri.replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
 
                     ontology_class = URIRef(self._ns + local_class_id)
                     situation_digest[role_type].append({'role': role, 'actor': ontology_class, 'fred-class': actor})
 
-                    class_label = local_class_id + class_label if actor != OWL.Thing else class_label 
+                    class_label = local_class_id + class_label
+                elif actor == OWL.Thing:
+                    situation_digest[role_type].append({'role': role, 'actor': actor, 'fred-class': actor})
+                    class_label = class_label
+                     
         
         situation_digest.update({'class-label': class_label})
         
