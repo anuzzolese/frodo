@@ -9,7 +9,6 @@ from rdflib.paths import evalPath, OneOrMore
 from abc import ABC, abstractmethod
 from typing import List, Dict, NoReturn, Tuple
 from rdflib.term import URIRef
-from docutils.parsers.rst.roles import role
 
 
 nltk.download('wordnet')
