@@ -18,5 +18,6 @@ def index():
                  "attachment; filename=ontology.ttl"})
     else:
         return render_template("index.html")
-	
-myapp.run()
+
+if __name__ == '__main__':	
+    myapp.run()
