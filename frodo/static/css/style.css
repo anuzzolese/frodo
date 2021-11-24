@@ -1,0 +1,112 @@
+body {
+  /* background-color: rgb(162, 155, 143); */
+}
+
+h1 {
+  margin: 40px 0;
+}
+
+.subscript {
+  vertical-align: bottom;
+  margin-left: -30px
+}
+
+img#logo {
+  width: 15rem;
+  margin: 0 10px
+}
+
+.header .left {
+  text-align: left
+}
+
+.header .center {
+  text-align: center
+}
+
+.header .right {
+  text-align: right
+}
+
+.header .left img {
+  width: 90px
+}
+
+.header .center img {
+  width: 90px
+}
+
+.header .right img {
+  width: 55px
+}
+
+.btn-inverse {
+  background-color: black;
+  border-color: black;
+  color: white;
+}
+
+.btn-read {
+  margin: 10px 0;
+}
+
+.container {
+  background-color: white;
+  height: auto;
+  width: 85%;
+  padding: 20px;
+}
+
+textarea {
+  height: 200px;
+}
+
+input[type="text"]{
+  width: 100%;
+}
+
+input[type="checkbox"]{
+  width: 30px;
+}
+
+select.form-control {
+  width: 140px;
+  display: inline;
+}
+
+.form-group .row {
+  margin: 10px 0;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline>label {
+  display: inline;
+}
+
+.right-align {
+  text-align: right;
+}
+
+div#options {
+  display: none;
+}
+
+div#examples {
+  display: none;
+}
+
+.helper {
+  border: 1px dashed gray;
+  margin: 10px;
+}
+
+a {
+  color: #17a2b8;
+}
+
+a:hover {
+  color: #17a2b8;
+}

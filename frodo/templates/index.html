@@ -1,0 +1,90 @@
+<html>
+<head>
+<link rel = "icon" href="{{ url_for('static',filename='img/icon_no_bkg.png') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/vendor/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+<script src="{{ url_for('static',filename='js/vendor/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/vendor/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/demo.js') }}"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row header">
+      <div class="col-md-4 left">
+        <a href="http://stlab.istc.cnr.it/"><img src="{{ url_for('static',filename='img/STLabLogo-h80.png') }}" alt="STLab tools logo"></a>
+      </div>
+      <div class="col-md-4 center">
+        <a href="https://www.cnr.it//"><img src="{{ url_for('static',filename='img/CNR.png') }}" alt="CNR logo"></a>
+      </div>
+      <div class="col-md-4 right">
+        <a href="https://istc.cnr.it/"><img src="{{ url_for('static',filename='img/marchio_ISTC scaled_120.png') }}" alt="ISTC logo"></a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h1><img id="logo" src="{{ url_for('static',filename='img/logo_4_no_bkg.png') }}" alt="FrODO logo"/>
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <p>The Frame-bases Ontology Design Outlet (FrODO) is a tool for drafting ontologies from competency questions automatically.</p>
+      </div>
+    </div>
+    <form action="./" method="GET">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <!-- label for="enterAText">Enter a text</label -->
+          <textarea class="form-control" id="text" name="text" placeholder="Enter a text"></textarea>
+          <small id="textHelp" class="form-text text-muted">Write a single competency question that will be processed by FrODO.</small>
+        </div>
+      </div>
+    </div>
+    
+    <div id="examples" class="helper">
+  	  
+	    <div class="form-group">
+    	  <div class="row">
+        	<div class="col-md-12">
+	          <button class="btn btn-sm btn-success btn-small btn-use">Use</button>
+	          <p class="inline"><label for="prefixIn"><span class="example">What are the contaminated sites in the area of Pavia recorded in 2020?</label></p>
+        	</div>
+	      </div>
+	      <div class="row">
+        	<div class="col-md-12">
+        	  <button class="btn btn-sm btn-success btn-use">Use</button>
+	          <p class="inline"><label for="prefixIn"><span class="example">A wind instrument is a musical instrument that contains some type of resonator.</span> (<i>Definition</i>)</label></p>
+        	</div>
+	      </div>
+	      <div class="row">
+        	<div class="col-md-12">
+        	  <button class="btn btn-sm btn-success btn-use">Use</button>
+	          <p class="inline"><label for="prefixIn"><span class="example">Every brass instrument is a musical instrument whose sound is produced by sympathetic vibration of air in a tubular resonator in sympathy with the vibration of the player's lips.</span> (<i>Definition</i>)</label></p>
+        	</div>
+	      </div>
+	      <div class="row">
+        	<div class="col-md-12">
+        	  <button class="btn btn-sm btn-success btn-use">Use</button>
+	          <p class="inline"><label for="prefixIn"><span class="example">President Barack Obama and European Union leaders huddled in Washington amid growing fears over the future of the euro, which closed greater than 1.3 dollars.</span> (<i>Fact</i>)</label></p>
+        	</div>
+	      </div>
+	      <div class="row">
+        	<div class="col-md-12">
+        	  <button class="btn btn-sm btn-success btn-use">Use</button>
+	          <p class="inline"><label for="prefixIn"><span class="example">The New York Times reported that John McCarthy died. He invented the programming language LISP.</span> (<i>Fact</i>)</label></p>
+        	</div>
+	      </div>
+	    </div>
+   	 </div>
+   	 
+   	 <div class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-danger btn-read">Get OWL!</button>
+	  </div>
+    </div>
+    </form>
+  </div>
+
+</body>
+</html>
