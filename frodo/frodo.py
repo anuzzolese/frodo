@@ -3,11 +3,13 @@ import re
 from fredclient import FREDClient, FREDParameters, FREDDefaults
 import nltk
 from nltk.stem import WordNetLemmatizer
-from rdflib import RDFS, RDF, OWL, URIRef, Literal, BNode, Graph, Namespace
+from rdflib import RDFS, RDF, OWL, XSD, URIRef, Literal, BNode, Graph, Namespace
 from rdflib.paths import evalPath, OneOrMore
 
 from abc import ABC, abstractmethod
 from typing import List, Dict, NoReturn, Tuple
+from rdflib.term import URIRef
+from docutils.parsers.rst.roles import role
 
 
 nltk.download('wordnet')
@@ -47,20 +49,22 @@ class MorphUtils:
         return Literal(label, lang) if lang else Literal(label, datatype) if datatype else Literal(label)
 
     @staticmethod
-    def migrate_taxonomy(g: Graph, source_cls: URIRef, target_cls: URIRef) -> NoReturn:
-
+    def migrate_taxonomy(g: Graph, source_cls: URIRef, target_cls: URIRef, gerundify: bool = False, predicate: URIRef = RDFS.subClassOf) -> NoReturn:
+        
         ontology = Graph()
         ns = MorphUtils.get_namespace(target_cls)
-        print(f"Subclass {source_cls}")
-        for subclass in g.objects(source_cls, RDFS.subClassOf):
+        for subclass in g.objects(source_cls, predicate):
             if str(subclass).startswith(FREDDefaults.DEFAULT_FRED_NAMESPACE):
-                sc = URIRef(str(subclass).replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, ns))
+                if gerundify:
+                    sc = URIRef(ns + MorphUtils.gerundify(subclass))
+                else:
+                    sc = URIRef(ns + MorphUtils.get_id(subclass))
                 ontology.add((target_cls, RDFS.subClassOf, sc))
                 ontology.add((sc, RDF.type, OWL.Class))
 
                 label = MorphUtils.labelize_uriref(sc, 'en')
                 ontology.add((sc, RDFS.label, label))
-                ontology += MorphUtils.migrate_taxonomy(g, subclass, sc)
+                ontology += MorphUtils.migrate_taxonomy(g, subclass, sc, gerundify)
 
         return ontology
 
@@ -85,8 +89,7 @@ class MorphUtils:
     
     @staticmethod
     def gerundify(term: URIRef) -> Graph:
-        term_iri = str(term)
-        class_label = term_iri.replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
+        class_label = MorphUtils.get_id(term)
         class_label_terms = class_label[0:1] + re.sub('([A-Z]{1})', r' \1', class_label[1:])
         class_label_terms = class_label_terms.split()
         gerundive = MorphUtils.LEMMATIZER.lemmatize(class_label_terms[-1], 'v') + 'ing'
@@ -113,232 +116,243 @@ class BinaryRelationMorphism(MorphismI):
 
         sparql = f'''
             PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
-            SELECT ?subj ?subjtype ?rel ?obj ?objtype
+            PREFIX owl: <{OWL._NS}>
+            SELECT ?subj ?subjtype ?subjsameastype ?rel ?obj ?objtype ?objsameastype
             WHERE{{
-                ?subj ?rel ?obj;
-                    a ?subjtype .
-                ?obj a ?objtype
+                ?subj ?rel ?obj
+                OPTIONAL{{
+                    ?subj a ?subjtype
+                    FILTER(REGEX(STR(?subjtype), '^{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
+                }}
+                OPTIONAL{{
+                    ?obj a ?objtype
+                    FILTER(REGEX(STR(?objtype), '^{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
+                }}
+                OPTIONAL{{
+                    ?subj owl:sameAs/rdf:type ?subjsameastype
+                }}
+                OPTIONAL{{
+                    ?obj owl:sameAs/rdf:type ?objsameastype
+                }}
                 OPTIONAL{{ 
-                    ?type rdfs:subClassOf ?subtype .
+                    ?subjtype rdfs:subClassOf ?subtype .
                     ?subtype rdfs:subClassOf* dul:Event}}
                 FILTER(!BOUND(?subtype))
-                FILTER(REGEX(STR(?rel), '{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
-                FILTER(REGEX(STR(?subjtype), '{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
-                FILTER(REGEX(STR(?objtype), '{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
+                FILTER(REGEX(STR(?rel), '^{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
             }}
             '''
+        
         resultset = g.query(sparql)
         for row in resultset:
-            subj = row.subj
             subjtype = row.subjtype
+            subjsameastype = row.subjsameastype
             binary_predicate = row.rel
-            obj = row.obj
             objtype = row.objtype
+            objsameastype = row.objsameastype
 
-            subjtype_iri = str(subjtype)
-            objtype_iri = str(objtype)
-            binary_predicate_iri = str(binary_predicate)
-
-            object_id = objtype_iri.replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
-
-            subject_class = URIRef(self._ns + subjtype_iri.replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, ''))
-            ontology.add((subject_class, RDF.type, OWL.Class))
-            ontology.add((subject_class, RDFS.label, MorphUtils.labelize_uriref(subject_class, 'en')))
-            ontology += MorphUtils.migrate_taxonomy(g, subjtype, subject_class)
-            
-            object_class = URIRef(self._ns + object_id)
-            ontology.add((object_class, RDF.type, OWL.Class))
-            ontology.add((object_class, RDFS.label, MorphUtils.labelize_uriref(object_class, 'en')))
-            ontology += MorphUtils.migrate_taxonomy(g, objtype, object_class)
-
-            object_property = URIRef("".join([self._ns, binary_predicate_iri.replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, ''), object_id]))
-            ontology.add((object_property, RDF.type, OWL.ObjectProperty))
-            ontology.add((object_property, RDFS.domain, OWL.Thing))
-            ontology.add((object_property, RDFS.range, object_class))
-            ontology.add((object_property, RDFS.label, MorphUtils.labelize_uriref(object_property, 'en')))
-
-
-            inverse_object_property = MorphUtils.inverse(object_property)
-            ontology.add((inverse_object_property, RDF.type, OWL.ObjectProperty))
-            ontology.add((inverse_object_property, RDFS.domain, object_class))
-            ontology.add((inverse_object_property, RDFS.range, OWL.Thing))
-            ontology.add((inverse_object_property, RDFS.label, MorphUtils.labelize_uriref(inverse_object_property, 'en')))
-
-            restriction = BNode()
-
-            ontology.add((restriction, RDF.type, OWL.Restriction))
-            ontology.add((restriction, OWL.onProperty, object_property))
-            ontology.add((restriction, OWL.someValuesFrom, object_class))
-            ontology.add((subject_class, RDFS.subClassOf, restriction))
-
-        return ontology
-
-class NAryRelationMorphism(MorphismI):
-
-    def __init__(self, ns):
-        super().__init__(ns)
-        self.__lemmatizer: WordNetLemmatizer = WordNetLemmatizer()
-    
-    def morph(self, g: Graph) -> Graph:
-
-        ontology = Graph()
-
-        '''
-        We first detect frame occurrences for the base case.
-        Frame occurrences are detected by querying the graph with the following property path:
-        ?x rdf:type/rdfs:subClassOf* dul:Event
-        '''
-
-        sparql = f'''
-            PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
-            SELECT ?situation ?situationtype
-            WHERE{{
-                ?situation a ?situationtype .
-                ?situationtype rdfs:subClassOf+ dul:Event
-                FILTER(REGEX(STR(?situation), '{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
-                FILTER(REGEX(STR(?situationtype), '{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
-            }}
-            '''
-        resultset = g.query(sparql)
-
-        #paths = evalPath(g, (None, RDF.type/(RDFS.subClassOf*OneOrMore), URIRef('http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Event')))
-        #for path in paths:
-        for row in resultset:
-            situation = row.situation
-            situation_type = row.situationtype
-            
-            situation_iri = str(situation)
-        
-            
-            predicates = {
-                'passive-roles': [],
-                'agentive-roles': [],
-                'conditional-agentive-roles': [],
-                'oblique-roles': [],
-                'fred-roles': []
-            }
-            
-            for p in g.predicates(subject=situation):
-                p_iri = str(p)
-                if p_iri in FREDDefaults.ROLES['passive']:
-                    predicates['passive-roles'].append(p)
-                elif p_iri in FREDDefaults.ROLES['agentive']:
-                    predicates['agentive-roles'].append(p)
-                elif p_iri in FREDDefaults.ROLES['conditional_agentive']:
-                    predicates['conditional-agentive-roles'].append(p)
-                elif p_iri in FREDDefaults.ROLES['oblique']:
-                    predicates['oblique-roles'].append(p)
-                elif p_iri.startswith(FREDDefaults.DEFAULT_FRED_NAMESPACE):
-                    predicates['fred-roles'].append(p)
-
-            situation_digest = {
-                    'id': situation,
-                    'situation-type': situation_type,
-                    'passive-roles': [],
-                    'agentive-roles': [],
-                    'conditional-agentive-roles': [],
-                    'oblique-roles': [],
-                    'fred-roles': []
-            }
-
-            flag = False
-            for role_type in ['passive-roles', 'agentive-roles', 'conditional-agentive-roles', 'oblique-roles', 'fred-roles']:
-                tmp_situation_digest = self.__browse_situation_branch(g, situation, situation_type, predicates[role_type], role_type)
-                situation_digest.update({role_type: tmp_situation_digest[role_type]})
-                if not flag:
-
-                    '''
-                    Here we transform the class label derived from a frame into a gerundive form.
-                    '''
-                    
-                    class_label = tmp_situation_digest['class-label']
-                    
-                    event_target = URIRef(self._ns + class_label)
-                    
-                    ontology += MorphUtils.migrate_taxonomy(g, situation_type, event_target)
-                    
-                    class_label_terms = class_label[0:1] + re.sub('([A-Z]{1})', r' \1', class_label[1:])
-                    class_label_terms = class_label_terms.split()
-                    gerundive = self.__lemmatizer.lemmatize(class_label_terms[-1], 'v') + 'ing'
-                    gerundive = gerundive[0:1].upper() + gerundive[1:]
-
-                    class_label = "".join(class_label_terms[:-1]) + gerundive
-                    situation_digest.update({'class-label': class_label})
-                    
-                    flag = True
-                    
-        
-            for role_type in ['passive-roles', 'agentive-roles', 'conditional-agentive-roles', 'oblique-roles', 'fred-roles']:
-                ontology = self.__formalise(g, situation_digest, role_type, ontology)
-
-
-            
-        return ontology
-
-    def __browse_situation_branch(self, g: Graph, situation: URIRef, situation_type: URIRef, roles: List[URIRef], role_type) -> Dict:
-        situation_digest = {
-            'id': situation,
-            'passive-roles': [],
-            'agentive-roles': [],
-            'conditional-agentive-roles': [],
-            'oblique-roles': [],
-            'fred-roles': [],
-            'class-label': None
-        }
-        class_label = str(situation_type).replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
-
-        for role in roles:
-            for actor in g.objects(situation, role/RDF.type):
-                actor_iri = str(actor)
-                if actor_iri.startswith(FREDDefaults.DEFAULT_FRED_NAMESPACE) or actor == OWL.Thing:
-                    
-                    if actor == OWL.Thing:
-                        local_class_id = MorphUtils.get_id(role)
-                    else:
-                        local_class_id = actor_iri.replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
-
-                    ontology_class = URIRef(self._ns + local_class_id)
-                    situation_digest[role_type].append({'role': role, 'actor': ontology_class, 'fred-class': actor})
-
-                    class_label = local_class_id + class_label
+            if subjtype:
+                subj = subjtype
+            elif subjsameastype:
+                subj = subjsameastype
+            else:
+                subj = None
                 
-                     
-        
-        situation_digest.update({'class-label': class_label})
-        
-        return situation_digest
+            if objtype:
+                obj = objtype
+            elif objsameastype:
+                obj = objsameastype
+            else:
+                obj = None
+                
+            if subj and obj:
+                
+                subject_id = MorphUtils.get_id(subj)
+                predicate_id = MorphUtils.get_id(binary_predicate)
+                object_id = MorphUtils.get_id(obj)
+    
+                subject_class = URIRef(self._ns + subject_id)
+                ontology.add((subject_class, RDF.type, OWL.Class))
+                ontology.add((subject_class, RDFS.label, MorphUtils.labelize_uriref(subject_class, 'en')))
+                ontology += MorphUtils.migrate_taxonomy(g, subj, subject_class)
+                
+                object_class = URIRef(self._ns + object_id)
+                ontology.add((object_class, RDF.type, OWL.Class))
+                ontology.add((object_class, RDFS.label, MorphUtils.labelize_uriref(object_class, 'en')))
+                ontology += MorphUtils.migrate_taxonomy(g, obj, object_class)
+    
+                object_property = URIRef("".join([self._ns, predicate_id, object_id]))
+                ontology.add((object_property, RDF.type, OWL.ObjectProperty))
+                ontology.add((object_property, RDFS.domain, OWL.Thing))
+                ontology.add((object_property, RDFS.range, object_class))
+                ontology.add((object_property, RDFS.label, MorphUtils.labelize_uriref(object_property, 'en')))
+    
+    
+                inverse_object_property = MorphUtils.inverse(object_property)
+                ontology.add((inverse_object_property, RDF.type, OWL.ObjectProperty))
+                ontology.add((inverse_object_property, RDFS.domain, object_class))
+                ontology.add((inverse_object_property, RDFS.range, OWL.Thing))
+                ontology.add((inverse_object_property, RDFS.label, MorphUtils.labelize_uriref(inverse_object_property, 'en')))
+    
+                restriction = BNode()
+    
+                ontology.add((restriction, RDF.type, OWL.Restriction))
+                ontology.add((restriction, OWL.onProperty, object_property))
+                ontology.add((restriction, OWL.someValuesFrom, object_class))
+                ontology.add((subject_class, RDFS.subClassOf, restriction))
 
-    def __formalise(self, g: Graph, situation_digest: Dict, roles_type: str, ontology: Graph) -> Graph:
+        return ontology
+    
+class RoleType:
+    
+    PASSIVE = 'PASSIVE'
+    AGENTIVE = 'AGENTIVE'
+    CONDITIONAL_AGENTIVE = 'CONDITIONAL_AGENTIVE'
+    OBLIQUE = 'OBLIQUE'
+    FRED_ROLE = 'FRED_ROLE'
+    
+    @staticmethod
+    def get_role_type(role: URIRef):
         
-        class_iri = URIRef(self._ns+situation_digest['class-label'])
+        role = str(role)
+        role_type = None
+        if role in FREDDefaults.ROLES['passive']:
+            role_type = RoleType.PASSIVE
+        elif role in FREDDefaults.ROLES['agentive']:
+            role_type = RoleType.AGENTIVE
+        elif role in FREDDefaults.ROLES['conditional_agentive']:
+            role_type = RoleType.CONDITIONAL_AGENTIVE
+        elif role in FREDDefaults.ROLES['oblique']:
+            role_type = RoleType.OBLIQUE
+        elif role.startswith(FREDDefaults.DEFAULT_FRED_NAMESPACE):
+            role_type = RoleType.FRED_ROLE
+            
+        return role_type
+
+
+class RoleMap:
+    
+    def __init__(self, role: URIRef, ontology_class: URIRef, fred_class: URIRef, role_type: str):
+        self.__role = role
+        self.__ontology_class = ontology_class
+        self.__fred_class = fred_class
+        self.__role_type = role_type
+        
+    def get_role(self) -> URIRef:
+        return self.__role
+    
+    def get_ontology_class(self) -> URIRef:
+        return self.__ontology_class
+    
+    def get_fred_class(self) -> URIRef:
+        return self.__fred_class
+    
+    def get_role_type(self) -> str:
+        return self.__role_type
+
+    
+class SituationDigest:
+
+
+    def __init__(self, source_graph: Graph, situation: URIRef, situation_type: URIRef):
+        self.__source_graph = source_graph
+        self.__situation = situation
+        self.__situation_type = situation_type
+        self.__passive_roles: List[RoleMap] = []
+        self.__agentive_roles: List[RoleMap] = []
+        self.__conditional_agentive_roles: List[RoleMap] = []
+        self.__oblique_roles: List[RoleMap] = []
+        self.__fred_roles: List[RoleMap] = []
+        self.__class_label: str = None
+        
+    def get_source_graph(self) -> Graph:
+        return self.__source_graph    
+    
+    def get_situation(self) -> URIRef:
+        return self.__situation
+    
+    def get_situation_type(self) -> URIRef:
+        return self.__situation_type
+        
+    def add_role_map(self, participant: URIRef, role_type: str):
+        if role_type == RoleType.AGENTIVE:
+            self.__agentive_roles.append(participant)
+        elif role_type == RoleType.PASSIVE:
+            self.__passive_roles.append(participant)
+        elif role_type == RoleType.CONDITIONAL_AGENTIVE:
+            self.__conditional_agentive_roles.append(participant)
+        elif role_type == RoleType.OBLIQUE:
+            self.__oblique_roles.append(participant)
+        elif role_type == RoleType.FRED_ROLE:
+            self.__fred_roles.append(participant)
+            
+    def get_participants_of_role_type(self, role_type: str) -> str:
+        
+        participants = None
+        if role_type == RoleType.AGENTIVE:
+            participants = self.__agentive_roles
+        elif role_type == RoleType.PASSIVE:
+            participants = self.__passive_roles
+        elif role_type == RoleType.CONDITIONAL_AGENTIVE:
+            participants = self.__conditional_agentive_roles
+        elif role_type == RoleType.OBLIQUE:
+            participants = self.__oblique_roles
+        elif role_type == RoleType.FRED_ROLE:
+            participants = self.__fred_roles
+            
+        return participants
+    
+    def get_class_label(self) -> str:
+        return self.__class_label
+    
+    def set_class_label(self, class_label: str):
+        
+        self.__class_label = class_label
+    
+    def update_class_label(self, class_label: str):
+        
+        if not self.__class_label:
+            self.__class_label = ''
+             
+        self.__class_label = class_label + self.__class_label
+        
+        
+    def formalise(self, namespace: str) -> Graph:
+        
+        ontology = Graph()
+        
+        class_iri = URIRef(namespace+self.__class_label)
 
         ontology.add((class_iri, RDF.type, OWL.Class))
         ontology.add((class_iri, RDFS.label, MorphUtils.labelize_uriref(class_iri, 'en')))
+        
+        ontology += MorphUtils.migrate_taxonomy(self.__source_graph, self.__situation, class_iri, True, RDF.type)
 
-
-        fred_situation_type = situation_digest['situation-type']
+        '''
+        fred_situation_type = self.__situation_type
         gerund = MorphUtils.gerundify(fred_situation_type)
-        gerundive_res = URIRef("".join([self._ns, gerund]))
+        gerundive_res = URIRef("".join([namespace, gerund]))
         ontology.add((gerundive_res, RDF.type, OWL.Class))
         ontology.add((gerundive_res, RDFS.label, MorphUtils.labelize_uriref(gerundive_res)))
         ontology.add((class_iri, RDFS.subClassOf, gerundive_res))
-                    
+        '''
         
-        roles = situation_digest[roles_type]
-        for role in roles:
-            role_predicate = role['role']
-            role_actor = role['actor']
-            fred_class = role['fred-class']
+        role_maps: List[RoleMap] = [*self.__agentive_roles, *self.__passive_roles, *self.__conditional_agentive_roles, *self.__oblique_roles, *self.__fred_roles]
+        
+        for role_map in role_maps:
+            role_predicate = role_map.get_role()
+            role_actor = role_map.get_ontology_class()
+            fred_class = role_map.get_fred_class()
+            role_type = role_map.get_role_type()
             
             role_actor_iri = str(role_actor)
 
-            if roles_type == 'fred-roles':
-                role_id = str(role_actor_iri).replace(self._ns, '').replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
-                predicate_id = str(role_predicate).replace(self._ns, '').replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
-                predicate = URIRef(''.join([self._ns, predicate_id, role_id]))
+            if role_type == RoleType.FRED_ROLE:
+                role_id = str(role_actor_iri).replace(namespace, '').replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
+                predicate_id = str(role_predicate).replace(namespace, '').replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
+                predicate = URIRef(''.join([namespace, predicate_id, role_id]))
             else:
-                predicate_id = str(role_actor_iri).replace(self._ns, '').replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
-                predicate = URIRef(''.join([self._ns, 'involves', predicate_id]))
+                predicate_id = str(role_actor_iri).replace(namespace, '').replace(FREDDefaults.DEFAULT_FRED_NAMESPACE, '')
+                predicate = URIRef(''.join([namespace, 'involves', predicate_id]))
             
             ontology.add((predicate, RDF.type, OWL.ObjectProperty))
             ontology.add((predicate, RDFS.label, MorphUtils.labelize_uriref(predicate)))
@@ -364,11 +378,106 @@ class NAryRelationMorphism(MorphismI):
 
             ontology.add((role_actor, RDF.type, OWL.Class))
             ontology.add((role_actor, RDFS.label, MorphUtils.labelize_uriref(role_actor)))
-            ontology += MorphUtils.migrate_taxonomy(g, fred_class, role_actor)
+            
+            ontology += MorphUtils.migrate_taxonomy(self.__source_graph, fred_class, role_actor)
         
         return ontology
+    
 
-class CQOntoGen:
+class NAryRelationMorphism(MorphismI):
+
+    def __init__(self, ns):
+        super().__init__(ns)
+        self.__lemmatizer: WordNetLemmatizer = WordNetLemmatizer()
+    
+    
+    def morph(self, g: Graph) -> Graph:
+
+        ontology = Graph()
+
+        '''
+        We first detect frame occurrences for the base case.
+        Frame occurrences are detected by querying the graph with the following property path:
+        ?x rdf:type/rdfs:subClassOf* dul:Event
+        '''
+
+        sparql = f'''
+            PREFIX dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#>
+            PREFIX owl: <{OWL._NS}>
+            PREFIX xsd: <{XSD._NS}>
+            SELECT ?situation ?situationtype ?role ?participant ?participanttype ?participantsameastype
+            WHERE{{
+                ?situation a ?situationtype ;
+                    ?role ?participant .
+                OPTIONAL{{
+                    ?participant a ?participanttype
+                    FILTER(REGEX(STR(?participanttype), '^{FREDDefaults.DEFAULT_FRED_NAMESPACE}') || ?participanttype = owl:Thing)
+                }}
+                OPTIONAL{{
+                    {{?participant owl:sameAs/a ?participantsameastype}}
+                    UNION
+                    {{
+                    ?situation ?role2 ?participant2
+                    FILTER(datatype(?participant2) = xsd:date || datatype(?participant2) = xsd:dateTime)
+                    BIND(dul:Time AS ?participantsameastype)
+                    }}
+                }}
+                ?situationtype rdfs:subClassOf+ dul:Event
+                FILTER(REGEX(STR(?situation), '^{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
+                FILTER(REGEX(STR(?situationtype), '^{FREDDefaults.DEFAULT_FRED_NAMESPACE}'))
+                FILTER(REGEX(STR(?role), '^http://www.ontologydesignpatterns.org/ont/') )
+            }}
+            '''
+        resultset = g.query(sparql)
+
+        #paths = evalPath(g, (None, RDF.type/(RDFS.subClassOf*OneOrMore), URIRef('http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Event')))
+        #for path in paths:
+        
+        situations_registry: Dict[URIRef, SituationDigest] = dict()
+        
+        for row in resultset:
+            situation = row.situation
+            situation_type = row.situationtype
+            
+            role = row.role
+            
+            role_type = RoleType.get_role_type(role)
+            
+            if row.participanttype:
+                participant_type = row.participanttype
+            elif row.participantsameastype:
+                participant_type = row.participantsameastype
+            else:
+                participant_type = None
+                
+            if participant_type and role_type:
+                
+                if situation in situations_registry:
+                    situation_digest = situations_registry[situation]
+                else:
+                    situation_digest = SituationDigest(g, situation, situation_type)
+                    situations_registry.update({situation: situation_digest})
+                    
+                    situation_digest.set_class_label(MorphUtils.gerundify(situation_type))
+                    
+                local_class_id = MorphUtils.get_id(participant_type)
+                ontology_class = URIRef(self._ns + local_class_id)
+                
+                role_map = RoleMap(role, ontology_class, participant_type, role_type)
+                
+                situation_digest.add_role_map(role_map, role_type)
+                
+                if role_type == RoleType.PASSIVE:
+                    situation_digest.update_class_label(local_class_id)
+                
+                
+        for situation, digest in situations_registry.items():
+            ontology += digest.formalise(self._ns)
+            
+        return ontology
+    
+
+class Frodo:
 
     def __init__(self, namespace, fred_uri: str, morphisms: Tuple[MorphismI] = None):
         self.__g: Graph = None
@@ -376,10 +485,10 @@ class CQOntoGen:
         self.__fred_uri = fred_uri
         self.__morphisms: Tuple[MorphismI] = morphisms if morphisms else (BinaryRelationMorphism(namespace), NAryRelationMorphism(namespace))
 
-    def get_namespace() -> str:
+    def get_namespace(self) -> str:
         return self.__ns
 
-    def set_namesapce(namespace: str):
+    def set_namesapce(self, namespace: str):
         self.__ns = namespace
         
     def generate(self, cq: str) -> Graph:
