@@ -1,5 +1,9 @@
 from flask import Flask, Response, render_template, request
 from frodo import Frodo
+import shortuuid
+
+
+shortuuid.set_alphabet("0123456789abcdefghijkmnopqrstuvwxyz")
 
 myapp = Flask(__name__)
 
@@ -10,7 +14,9 @@ NS = 'https://w3id.org/stlab/ontology/'
 def index():
     text = request.args.get("text")
     if text:
-        frodo = Frodo(NS, FRED_ENDPOINT)
+        
+        namespace = ''.join([NS, shortuuid.uuid(text)[:8], '/'])
+        frodo = Frodo(namespace, FRED_ENDPOINT)
         ontology = frodo.generate(text)
         return Response(ontology.serialize(format='text/turtle'),
             mimetype='text/turtle',
