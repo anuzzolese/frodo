@@ -1,29 +1,29 @@
 <html>
 <head>
 <base href="{{basepath}}">
-<link rel = "icon" href="{{ url_for('static',filename='img/icon_no_bkg.png') }}" type="image/x-icon">
-<link rel="stylesheet" href="{{ url_for('static',filename='css/vendor/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
-<script src="{{ url_for('static',filename='js/vendor/jquery-3.3.1.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js/vendor/bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js/demo.js') }}"></script>
+<link rel = "icon" href="{{basepath}}{{ url_for('static',filename='img/icon_no_bkg.png') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{basepath}}{{ url_for('static',filename='css/vendor/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{basepath}}{{ url_for('static',filename='css/style.css') }}">
+<script src="{{basepath}}{{ url_for('static',filename='js/vendor/jquery-3.3.1.min.js') }}"></script>
+<script src="{{basepath}}{{ url_for('static',filename='js/vendor/bootstrap.min.js') }}"></script>
+<script src="{{basepath}}{{ url_for('static',filename='js/demo.js') }}"></script>
 </head>
 <body>
   <div class="container">
     <div class="row header">
       <div class="col-md-4 left">
-        <a href="http://stlab.istc.cnr.it/"><img src="{{ url_for('static',filename='img/STLabLogo-h80.png') }}" alt="STLab tools logo"></a>
+        <a href="http://stlab.istc.cnr.it/"><img src="{{basepath}}{{ url_for('static',filename='img/STLabLogo-h80.png') }}" alt="STLab tools logo"></a>
       </div>
       <div class="col-md-4 center">
-        <a href="https://www.cnr.it//"><img src="{{ url_for('static',filename='img/CNR.png') }}" alt="CNR logo"></a>
+        <a href="https://www.cnr.it//"><img src="{{basepath}}{{ url_for('static',filename='img/CNR.png') }}" alt="CNR logo"></a>
       </div>
       <div class="col-md-4 right">
-        <a href="https://istc.cnr.it/"><img src="{{ url_for('static',filename='img/marchio_ISTC scaled_120.png') }}" alt="ISTC logo"></a>
+        <a href="https://istc.cnr.it/"><img src="{{basepath}}{{ url_for('static',filename='img/marchio_ISTC scaled_120.png') }}" alt="ISTC logo"></a>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <h1><img id="logo" src="{{ url_for('static',filename='img/logo_4_no_bkg.png') }}" alt="FrODO logo"/>
+        <h1><img id="logo" src="{{basepath}}{{ url_for('static',filename='img/logo_4_no_bkg.png') }}" alt="FrODO logo"/>
         </h1>
       </div>
     </div>
@@ -32,7 +32,7 @@
         <p>The Frame-bases Ontology Design Outlet (FrODO) is a tool for drafting ontologies from competency questions automatically.</p>
       </div>
     </div>
-    <form action="" method="GET">
+    <form action="{{basepath}}" method="GET">
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
