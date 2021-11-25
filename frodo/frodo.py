@@ -343,9 +343,11 @@ class SituationDigest:
             fred_class = role_map.get_fred_class()
             role_type = role_map.get_role_type()
             
+            '''
             if fred_class == OWL.Thing:
                 role_actor = URIRef(''.join([namespace, MorphUtils.get_id(role_predicate)]))
-                
+            '''
+             
             role_actor_iri = str(role_actor)
 
             if role_type == RoleType.FRED_ROLE:
@@ -445,12 +447,18 @@ class NAryRelationMorphism(MorphismI):
             
             role_type = RoleType.get_role_type(role)
             
-            if row.participanttype:
-                participant_type = row.participanttype
-            elif row.participantsameastype:
-                participant_type = row.participantsameastype
+            if row.participanttype == OWL.Thing:
+                if row.participantsameastype:
+                    participant_type = row.participantsameastype
+                else:
+                    participant_type = role
             else:
-                participant_type = None
+                if row.participanttype:
+                    participant_type = row.participanttype
+                elif row.participantsameastype:
+                    participant_type = row.participantsameastype
+                else:
+                    participant_type = None
                 
             if participant_type and role_type:
                 
@@ -464,6 +472,7 @@ class NAryRelationMorphism(MorphismI):
                     
                 local_class_id = MorphUtils.get_id(participant_type)
                 ontology_class = URIRef(self._ns + local_class_id)
+                
                 
                 role_map = RoleMap(role, ontology_class, participant_type, role_type)
                 
