@@ -40,13 +40,3 @@ function useExample(){
 	var example = $(".example", $(this).parent()).html();
 	$("#text").html(example);
 }
-
-function submit(){
-	data = {
-    	text: $("#text").val()
-    }
-	$.get(".", data)
-		.done(function(data){
-			alert(data);
-		});
-}
