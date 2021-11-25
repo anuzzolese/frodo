@@ -9,7 +9,7 @@ myapp = Flask(__name__)
 def index():
     text = request.args.get("text")
     if text:
-        
+        print(text)
         namespace = ''.join([webapp_conf.NS, shortuuid.uuid(text)[:8], '/'])
         frodo = Frodo(namespace, webapp_conf.FRED_ENDPOINT)
         ontology = frodo.generate(text)
