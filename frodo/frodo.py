@@ -343,6 +343,9 @@ class SituationDigest:
             fred_class = role_map.get_fred_class()
             role_type = role_map.get_role_type()
             
+            if fred_class == OWL.Thing:
+                role_actor = URIRef(''.join([namespace, MorphUtils.get_id(role_predicate)]))
+                
             role_actor_iri = str(role_actor)
 
             if role_type == RoleType.FRED_ROLE:
