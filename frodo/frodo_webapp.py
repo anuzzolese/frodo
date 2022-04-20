@@ -8,11 +8,13 @@ myapp = Flask(__name__)
 @myapp.route("/")
 def index():
     text = request.args.get("text")
+    ontology_id = request.args.get("ontology-id")
     if text:
         print(text)
-        namespace = ''.join([webapp_conf.NS, shortuuid.uuid(text)[:8], '/'])
+        #namespace = ''.join([webapp_conf.NS, shortuuid.uuid(text)[:8], '/'])
+        namespace = webapp_conf.NS
         frodo = Frodo(namespace, webapp_conf.FRED_ENDPOINT)
-        ontology = frodo.generate(text)
+        ontology = frodo.generate(text, ontology_id)
         return Response(ontology.serialize(format='text/turtle'),
             mimetype='text/turtle',
             headers={"Content-disposition":

@@ -502,13 +502,16 @@ class Frodo:
     def set_namesapce(self, namespace: str):
         self.__ns = namespace
         
-    def generate(self, cq: str) -> Graph:
+    def generate(self, cq: str, ontology_id: str = None) -> Graph:
         
+        
+        if not ontology_id:
+            ontology_id = self.__ns 
         
         fredclient = FREDClient(self.__fred_uri)
         self.__g = fredclient.execute_request(cq, FREDParameters(semantic_subgraph=False))
         ontology = Graph()
-        ontology.add((URIRef(self.__ns), RDF.type, OWL.Ontology))
+        ontology.add((URIRef(ontology_id), RDF.type, OWL.Ontology))
         ontology.bind("owl", Namespace('http://www.w3.org/2002/07/owl#'))
         ontology.bind("rdf", Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#'))
         ontology.bind("rdfs", Namespace('http://www.w3.org/2000/01/rdf-schema#'))
@@ -516,6 +519,16 @@ class Frodo:
 
         for morphism in self.__morphisms:
             ontology += morphism.morph(self.__g)
+            
+        
+        triples_to_del = []
+        for s, p, o in ontology.triples((None, RDFS.subClassOf, None)):
+            if s == o:
+                triples_to_del.append((s, RDFS.subClassOf, o))
+                
+        
+        for triple in triples_to_del:
+            ontology.remove(triple)
 
         return ontology
 
