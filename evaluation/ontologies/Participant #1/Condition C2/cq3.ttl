@@ -1,0 +1,104 @@
+@prefix : <https://w3id.org/stlab/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Recording a owl:Class ;
+    rdfs:label "Recording"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :involvesAmount ;
+            owl:someValuesFrom :Amount ],
+        [ a owl:Restriction ;
+            owl:onProperty :involvesPerson ;
+            owl:someValuesFrom :Person ],
+        [ a owl:Restriction ;
+            owl:onProperty :involvesTime ;
+            owl:someValuesFrom :Time ] .
+
+:isAmountOfMicrobiologicalSubstanceOf a owl:ObjectProperty ;
+    rdfs:label "is amount of microbiological substance of"@en ;
+    rdfs:domain :MicrobiologicalSubstance ;
+    rdfs:range owl:Thing .
+
+:isInSurfaceWatersOf a owl:ObjectProperty ;
+    rdfs:label "is in surface waters of"@en ;
+    rdfs:domain :SurfaceWaters ;
+    rdfs:range owl:Thing .
+
+<http://semantics.istc.cnr.it/frodo-eval/cogan/cq3.ttl> a owl:Ontology .
+
+:Substance a owl:Class ;
+    rdfs:label "Substance"@en .
+
+:Waters a owl:Class ;
+    rdfs:label "Waters"@en .
+
+:amountOfMicrobiologicalSubstance a owl:ObjectProperty ;
+    rdfs:label "amount of microbiological substance"@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :MicrobiologicalSubstance .
+
+:inSurfaceWaters a owl:ObjectProperty ;
+    rdfs:label "in surface waters"@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :SurfaceWaters .
+
+:isAmountInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is amount involved in" ;
+    rdfs:domain :Amount ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesAmount .
+
+:isPersonInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is person involved in" ;
+    rdfs:domain :Person ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesPerson .
+
+:isTimeInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is time involved in" ;
+    rdfs:domain :Time ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesTime .
+
+:involvesAmount a owl:ObjectProperty ;
+    rdfs:label "involves amount" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Amount ;
+    owl:inverseOf :isAmountInvolvedIn .
+
+:involvesPerson a owl:ObjectProperty ;
+    rdfs:label "involves person" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Person ;
+    owl:inverseOf :isPersonInvolvedIn .
+
+:involvesTime a owl:ObjectProperty ;
+    rdfs:label "involves time" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Time ;
+    owl:inverseOf :isTimeInvolvedIn .
+
+:Amount a owl:Class ;
+    rdfs:label "Amount",
+        "Amount"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :amountOfMicrobiologicalSubstance ;
+            owl:someValuesFrom :MicrobiologicalSubstance ] .
+
+:MicrobiologicalSubstance a owl:Class ;
+    rdfs:label "Microbiological substance"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :inSurfaceWaters ;
+            owl:someValuesFrom :SurfaceWaters ],
+        :Substance .
+
+:Person a owl:Class ;
+    rdfs:label "Person" .
+
+:SurfaceWaters a owl:Class ;
+    rdfs:label "Surface waters"@en ;
+    rdfs:subClassOf :Waters .
+
+:Time a owl:Class ;
+    rdfs:label "Time" .
+

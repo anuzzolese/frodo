@@ -1,0 +1,84 @@
+@prefix : <https://w3id.org/stlab/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Representing a owl:Class ;
+    rdfs:label "Representing"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :involvesParameter ;
+            owl:someValuesFrom :Parameter ],
+        [ a owl:Restriction ;
+            owl:onProperty :involvesQuality ;
+            owl:someValuesFrom :Quality ],
+        [ a owl:Restriction ;
+            owl:onProperty :involvesAgent ;
+            owl:someValuesFrom :Agent ] .
+
+:isQualityOfWaterBodyOf a owl:ObjectProperty ;
+    rdfs:label "is quality of water body of"@en ;
+    rdfs:domain :WaterBody ;
+    rdfs:range owl:Thing .
+
+<http://semantics.istc.cnr.it/frodo-eval/cogan/cq2.ttl> a owl:Ontology .
+
+:Body a owl:Class ;
+    rdfs:label "Body"@en .
+
+:isAgentInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is agent involved in" ;
+    rdfs:domain :Agent ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesAgent .
+
+:isParameterInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is parameter involved in" ;
+    rdfs:domain :Parameter ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesParameter .
+
+:isQualityInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is quality involved in" ;
+    rdfs:domain :Quality ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesQuality .
+
+:qualityOfWaterBody a owl:ObjectProperty ;
+    rdfs:label "quality of water body"@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :WaterBody .
+
+:involvesAgent a owl:ObjectProperty ;
+    rdfs:label "involves agent" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Agent ;
+    owl:inverseOf :isAgentInvolvedIn .
+
+:involvesParameter a owl:ObjectProperty ;
+    rdfs:label "involves parameter" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Parameter ;
+    owl:inverseOf :isParameterInvolvedIn .
+
+:involvesQuality a owl:ObjectProperty ;
+    rdfs:label "involves quality" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Quality ;
+    owl:inverseOf :isQualityInvolvedIn .
+
+:Agent a owl:Class ;
+    rdfs:label "Agent" .
+
+:Parameter a owl:Class ;
+    rdfs:label "Parameter" .
+
+:Quality a owl:Class ;
+    rdfs:label "Quality",
+        "Quality"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :qualityOfWaterBody ;
+            owl:someValuesFrom :WaterBody ] .
+
+:WaterBody a owl:Class ;
+    rdfs:label "Water body"@en ;
+    rdfs:subClassOf :Body .
+

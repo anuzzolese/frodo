@@ -1,0 +1,73 @@
+@prefix : <https://w3id.org/stlab/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Body a owl:Class ;
+    rdfs:label "Body"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :levelOfChemicalSubstance ;
+            owl:someValuesFrom :ChemicalSubstance ],
+        :Level .
+
+:Recording a owl:Class ;
+    rdfs:label "Recording"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :involvesChemicalSubstance ;
+            owl:someValuesFrom :ChemicalSubstance ],
+        [ a owl:Restriction ;
+            owl:onProperty :involvesWater ;
+            owl:someValuesFrom :Water ] .
+
+:isLevelOfChemicalSubstanceOf a owl:ObjectProperty ;
+    rdfs:label "is level of chemical substance of"@en ;
+    rdfs:domain :ChemicalSubstance ;
+    rdfs:range owl:Thing .
+
+<http://semantics.istc.cnr.it/frodo-eval/cogan/cq1.ttl> a owl:Ontology .
+
+:Level a owl:Class ;
+    rdfs:label "Level"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :levelOfChemicalSubstance ;
+            owl:someValuesFrom :ChemicalSubstance ] .
+
+:Substance a owl:Class ;
+    rdfs:label "Substance"@en .
+
+:isChemicalSubstanceInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is chemical substance involved in" ;
+    rdfs:domain :ChemicalSubstance ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesChemicalSubstance .
+
+:isWaterInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is water involved in" ;
+    rdfs:domain :Water ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesWater .
+
+:involvesChemicalSubstance a owl:ObjectProperty ;
+    rdfs:label "involves chemical substance" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :ChemicalSubstance ;
+    owl:inverseOf :isChemicalSubstanceInvolvedIn .
+
+:involvesWater a owl:ObjectProperty ;
+    rdfs:label "involves water" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Water ;
+    owl:inverseOf :isWaterInvolvedIn .
+
+:levelOfChemicalSubstance a owl:ObjectProperty ;
+    rdfs:label "level of chemical substance"@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :ChemicalSubstance .
+
+:Water a owl:Class ;
+    rdfs:label "Water" .
+
+:ChemicalSubstance a owl:Class ;
+    rdfs:label "Chemical substance",
+        "Chemical substance"@en ;
+    rdfs:subClassOf :Substance .
+
