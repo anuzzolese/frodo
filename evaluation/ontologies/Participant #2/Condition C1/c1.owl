@@ -1,0 +1,173 @@
+@prefix : <http://example.org/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://example.org/ontology> .
+
+<http://example.org/ontology> rdf:type owl:Ontology ;
+                               owl:versionIRI <http://example.org/ontology> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://example.org/ontology/aggregates
+<http://example.org/ontology/aggregates> rdf:type owl:ObjectProperty .
+
+
+###  http://example.org/ontology/atTime
+<http://example.org/ontology/atTime> rdf:type owl:ObjectProperty ;
+                                     rdfs:range <http://example.org/ontology/TemporalEntity> .
+
+
+###  http://example.org/ontology/hasGeographicalArea
+<http://example.org/ontology/hasGeographicalArea> rdf:type owl:ObjectProperty ;
+                                                  rdfs:range <http://example.org/ontology/GeographicalArea> .
+
+
+###  http://example.org/ontology/includedIn
+<http://example.org/ontology/includedIn> rdf:type owl:ObjectProperty ;
+                                         rdfs:domain <http://example.org/ontology/GeographicalArea> ;
+                                         rdfs:range <http://example.org/ontology/GeographicalArea> .
+
+
+###  http://example.org/ontology/locatedIn
+<http://example.org/ontology/locatedIn> rdf:type owl:ObjectProperty ;
+                                        rdfs:range <http://example.org/ontology/GeographicalArea> .
+
+
+###  http://example.org/ontology/of
+<http://example.org/ontology/of> rdf:type owl:ObjectProperty .
+
+
+###  http://example.org/ontology/recordedBy
+<http://example.org/ontology/recordedBy> rdf:type owl:ObjectProperty ;
+                                         rdfs:range <http://example.org/ontology/Agent> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://example.org/ontology/rate
+<http://example.org/ontology/rate> rdf:type owl:DatatypeProperty .
+
+
+###  http://example.org/ontology/wkt
+<http://example.org/ontology/wkt> rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://example.org/ontology/Agent
+<http://example.org/ontology/Agent> rdf:type owl:Class .
+
+
+###  http://example.org/ontology/ContaminationObservation
+<http://example.org/ontology/ContaminationObservation> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://example.org/ontology/ObservationInTime> ,
+                                                                       [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty <http://example.org/ontology/hasGeographicalArea> ;
+                                                                         owl:someValuesFrom <http://example.org/ontology/GeographicalArea>
+                                                                       ] .
+
+
+###  http://example.org/ontology/Disease
+<http://example.org/ontology/Disease> rdf:type owl:Class .
+
+
+###  http://example.org/ontology/GeographicalArea
+<http://example.org/ontology/GeographicalArea> rdf:type owl:Class ;
+                                               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://example.org/ontology/includedIn> ;
+                                                                 owl:allValuesFrom <http://example.org/ontology/GeographicalArea>
+                                                               ] ,
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty <http://example.org/ontology/wkt> ;
+                                                                 owl:someValuesFrom rdfs:Literal
+                                                               ] .
+
+
+###  http://example.org/ontology/Hospitalization
+<http://example.org/ontology/Hospitalization> rdf:type owl:Class ;
+                                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://example.org/ontology/of> ;
+                                                                owl:someValuesFrom <http://example.org/ontology/Disease>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://example.org/ontology/recordedBy> ;
+                                                                owl:someValuesFrom <http://example.org/ontology/Agent>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://example.org/ontology/locatedIn> ;
+                                                                owl:allValuesFrom <http://example.org/ontology/GeographicalArea>
+                                                              ] ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://example.org/ontology/atTime> ;
+                                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass <http://example.org/ontology/TemporalEntity>
+                                                              ] .
+
+
+###  http://example.org/ontology/HospitalizationRate
+<http://example.org/ontology/HospitalizationRate> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://example.org/ontology/Rate> ,
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty <http://example.org/ontology/of> ;
+                                                                    owl:someValuesFrom <http://example.org/ontology/Disease>
+                                                                  ] ,
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty <http://example.org/ontology/aggregates> ;
+                                                                    owl:allValuesFrom <http://example.org/ontology/Hospitalization>
+                                                                  ] .
+
+
+###  http://example.org/ontology/ObservationInTime
+<http://example.org/ontology/ObservationInTime> rdf:type owl:Class ;
+                                                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://example.org/ontology/atTime> ;
+                                                                  owl:someValuesFrom <http://example.org/ontology/TemporalEntity>
+                                                                ] .
+
+
+###  http://example.org/ontology/Rate
+<http://example.org/ontology/Rate> rdf:type owl:Class ;
+                                   rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://example.org/ontology/of> ;
+                                                     owl:someValuesFrom owl:Thing
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://example.org/ontology/aggregates> ;
+                                                     owl:allValuesFrom owl:Thing
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://example.org/ontology/atTime> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass <http://example.org/ontology/TemporalEntity>
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://example.org/ontology/rate> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onDataRange xsd:integer
+                                                   ] .
+
+
+###  http://example.org/ontology/TemporalEntity
+<http://example.org/ontology/TemporalEntity> rdf:type owl:Class .
+
+
+###  http://example.org/ontology/TimeInstant
+<http://example.org/ontology/TimeInstant> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://example.org/ontology/TemporalEntity> .
+
+
+###  http://example.org/ontology/TimeInterval
+<http://example.org/ontology/TimeInterval> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://example.org/ontology/TemporalEntity> .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
