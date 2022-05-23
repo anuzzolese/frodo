@@ -1,0 +1,315 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42#"
+     xml:base="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasAgent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasAgent">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isAgentOf"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Agent"/>
+        <rdfs:label>hasAgent</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasLevel -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasLevel">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isLevelOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/ChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/ChemicalSubstanceLevel"/>
+        <rdfs:label>Level</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasTimeInterval -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasTimeInterval">
+        <rdfs:label>hasTimeInterval</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasWaterBodyQuality -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasWaterBodyQuality">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isWaterBodyQualityOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/WaterBody"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/WaterBodyQuality"/>
+        <rdfs:label>hasWaterBodyQuality</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/involvesChemicalSubstances -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/involvesChemicalSubstances">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isChemicalSubstanceInvolvedIn"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Recording"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/ChemicalSubstance"/>
+        <rdfs:label>involvesChemicalSubstances</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/involvesMicrobiologicalSubstances -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/involvesMicrobiologicalSubstances">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isMicrobiologicalSubstanceInvolvedIn"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/WaterBody"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/MicrobiologicalSubstance"/>
+        <rdfs:label>involvesMicrobiologicalSubstances</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/involvesWaterBody -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/involvesWaterBody">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isWaterBodyInvolvedIn"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Recording"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/WaterBody"/>
+        <rdfs:label>involvesBodyWater</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isAgentOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isAgentOf">
+        <rdfs:label>isAgentOf</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isChemicalSubstanceInvolvedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isChemicalSubstanceInvolvedIn">
+        <rdfs:label>isChemicalSubstanceInvolvedIn</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isLevelOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isLevelOf">
+        <rdfs:label>isLevelOf</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isMicrobiologicalSubstanceInvolvedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isMicrobiologicalSubstanceInvolvedIn">
+        <rdfs:label>isMicrobiologicalSubstanceInvolvedIn</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isTimeIntervalOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isTimeIntervalOf">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:inverseOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isWaterBodyInvolvedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isWaterBodyInvolvedIn">
+        <rdfs:label>isChemicalSubstanceInvolvedIn</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isWaterBodyQualityOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/isWaterBodyQualityOf">
+        <rdfs:label>hasWaterBodyQuality</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#topObjectProperty -->
+
+    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#topObjectProperty">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/TimeInterval"/>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasMicrobiologicalSubstanceAmount -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasMicrobiologicalSubstanceAmount">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/MicrobiologicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+        <rdfs:comment>hasMicrobiologicalSubstanceAmount</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Agent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Agent">
+        <rdfs:label>Agent</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/ChemicalSubstance -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/ChemicalSubstance">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Substance"/>
+        <rdfs:label>ChemicalSubstance</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/ChemicalSubstanceLevel -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/ChemicalSubstanceLevel">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Parameter"/>
+        <rdfs:label>ChemicalSubstanceLevel</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/MicrobiologicalSubstance -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/MicrobiologicalSubstance">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Substance"/>
+        <rdfs:label>MicrobiologicalSubstance</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Parameter -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Parameter">
+        <rdfs:label>Parameter</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Recording -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Recording">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Situation"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasAgent"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Agent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/hasTimeInterval"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/TimeInterval"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/involvesChemicalSubstances"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/ChemicalSubstance"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/involvesWaterBody"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/WaterBody"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label>Recording</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Situation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Situation">
+        <rdfs:label>Situation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Substance -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Substance">
+        <rdfs:label>Substance</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/TimeInterval -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/TimeInterval">
+        <rdfs:label>TimeInterval</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/WaterBody -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/WaterBody">
+        <rdfs:label>WaterBody</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/WaterBodyQuality -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/WaterBodyQuality">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/participant5/ontologies/2022/3/untitled-ontology-42/Parameter"/>
+        <rdfs:label>WaterBodyQuality</rdfs:label>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

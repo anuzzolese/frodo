@@ -1,0 +1,85 @@
+@prefix : <https://w3id.org/stlab/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Monitoring a owl:Class ;
+    rdfs:label "Monitoring"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :inGeographicalArea ;
+            owl:someValuesFrom :GeographicalArea ],
+        [ a owl:Restriction ;
+            owl:onProperty :involvesHospitalisation ;
+            owl:someValuesFrom :Hospitalisation ],
+        [ a owl:Restriction ;
+            owl:onProperty :involvesPerson ;
+            owl:someValuesFrom :Person ],
+        [ a owl:Restriction ;
+            owl:onProperty :involvesDisease ;
+            owl:someValuesFrom :Disease ] .
+
+<http://semantics.istc.cnr.it/frodo-eval/margherita/cq6.ttl> a owl:Ontology .
+
+:Area a owl:Class ;
+    rdfs:label "Area"@en .
+
+:isDiseaseInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is disease involved in" ;
+    rdfs:domain :Disease ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesDisease .
+
+:isHospitalisationInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is hospitalisation involved in" ;
+    rdfs:domain :Hospitalisation ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesHospitalisation .
+
+:isInGeographicalAreaOf a owl:ObjectProperty ;
+    rdfs:label "is in geographical area of" ;
+    rdfs:domain :GeographicalArea ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :inGeographicalArea .
+
+:isPersonInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is person involved in" ;
+    rdfs:domain :Person ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesPerson .
+
+:inGeographicalArea a owl:ObjectProperty ;
+    rdfs:label "in geographical area" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :GeographicalArea ;
+    owl:inverseOf :isInGeographicalAreaOf .
+
+:involvesDisease a owl:ObjectProperty ;
+    rdfs:label "involves disease" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Disease ;
+    owl:inverseOf :isDiseaseInvolvedIn .
+
+:involvesHospitalisation a owl:ObjectProperty ;
+    rdfs:label "involves hospitalisation" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Hospitalisation ;
+    owl:inverseOf :isHospitalisationInvolvedIn .
+
+:involvesPerson a owl:ObjectProperty ;
+    rdfs:label "involves person" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Person ;
+    owl:inverseOf :isPersonInvolvedIn .
+
+:Disease a owl:Class ;
+    rdfs:label "Disease" .
+
+:GeographicalArea a owl:Class ;
+    rdfs:label "Geographical area" ;
+    rdfs:subClassOf :Area .
+
+:Hospitalisation a owl:Class ;
+    rdfs:label "Hospitalisation" .
+
+:Person a owl:Class ;
+    rdfs:label "Person" .
+

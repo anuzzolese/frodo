@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/sdg/ontologies/2022/4/untitled-ontology-71#"
+     xml:base="http://www.semanticweb.org/sdg/ontologies/2022/4/untitled-ontology-71"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ontology="https://w3id.org/stlab/ontology/"
+     xmlns:FrODO_test="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl">
+        <owl:imports rdf:resource="https://raw.githubusercontent.com/anuzzolese/frodo/main/evaluation/ontologies/Participant%20%237/Condition%20C2/cq1.ttl"/>
+        <owl:imports rdf:resource="https://raw.githubusercontent.com/anuzzolese/frodo/main/evaluation/ontologies/Participant%20%237/Condition%20C2/cq2.ttl"/>
+        <owl:imports rdf:resource="https://raw.githubusercontent.com/anuzzolese/frodo/main/evaluation/ontologies/Participant%20%237/Condition%20C2/cq3.ttl"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#involvesLevel -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#involvesLevel">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#isLevelInvolvedIn"/>
+        <rdfs:domain rdf:resource="https://w3id.org/stlab/ontology/Recording"/>
+        <rdfs:range rdf:resource="https://w3id.org/stlab/ontology/Level"/>
+        <rdfs:comment>Added this property to represent the :Recording as N-ary relation involving some Location, ChemicalSubstance and Level.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#involvesMicrobiologicalSubstance -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#involvesMicrobiologicalSubstance">
+        <rdfs:domain rdf:resource="https://w3id.org/stlab/ontology/Recording"/>
+        <rdfs:range rdf:resource="https://w3id.org/stlab/ontology/MicrobiologicalSubstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#involvesRecordingTime -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#involvesRecordingTime">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#isRecordingTimeInvolvedIn"/>
+        <rdfs:domain rdf:resource="https://w3id.org/stlab/ontology/Recording"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#RecordingTime"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#isLevelInvolvedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#isLevelInvolvedIn"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#isRecordingTimeInvolvedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#isRecordingTimeInvolvedIn"/>
+    
+
+
+    <!-- https://w3id.org/stlab/ontology/involvesParameter -->
+
+    <rdf:Description rdf:about="https://w3id.org/stlab/ontology/involvesParameter">
+        <rdfs:comment>Not the best label but still usable.</rdfs:comment>
+    </rdf:Description>
+    
+
+
+    <!-- https://w3id.org/stlab/ontology/involvesWaterBody -->
+
+    <rdf:Description rdf:about="https://w3id.org/stlab/ontology/involvesWaterBody">
+        <rdfs:range rdf:resource="https://w3id.org/stlab/ontology/WaterBody"/>
+        <rdfs:comment>renamed in :involvesWaterBody</rdfs:comment>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#hasLevelValue -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#hasLevelValue">
+        <rdfs:domain rdf:resource="https://w3id.org/stlab/ontology/Level"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#hasParameterValue -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#hasParameterValue">
+        <rdfs:domain rdf:resource="https://w3id.org/stlab/ontology/Parameter"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#hasTimeValue -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#hasTimeValue">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#RecordingTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#RecordingTime -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#RecordingTime">
+        <rdfs:comment>It was lacking the satisfaction of the &quot;when&quot; part of the CQ.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/stlab/ontology/Recording -->
+
+    <rdf:Description rdf:about="https://w3id.org/stlab/ontology/Recording">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#involvesLevel"/>
+                <owl:someValuesFrom rdf:resource="https://w3id.org/stlab/ontology/Level"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#involvesRecordingTime"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#RecordingTime"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/stlab/ontology/involvesWaterBody"/>
+                <owl:someValuesFrom rdf:resource="https://w3id.org/stlab/ontology/WaterBody"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
+    <!-- https://w3id.org/stlab/ontology/WaterBody -->
+
+    <rdf:Description rdf:about="https://w3id.org/stlab/ontology/WaterBody">
+        <rdfs:comment>The :Body class was subClassOf &quot;Level&quot;, which was incorrect.
+
+Renamed in &quot;WaterBody&quot; and removed from being subClassOf :Level.</rdfs:comment>
+        <owl:priorVersion>:Body rdfs:subClassOf :Level .</owl:priorVersion>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#cs -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#cs"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#l -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#l"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#ms -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#ms"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#p -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#p"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#par -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#par"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#q -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#q">
+        <ontology:involvesParameter rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#par"/>
+        <ontology:qualityOfWaterBody rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#wb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#r -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#r">
+        <rdf:type rdf:resource="https://w3id.org/stlab/ontology/Recording"/>
+        <FrODO_test:involvesLevel rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#l"/>
+        <FrODO_test:involvesMicrobiologicalSubstance rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#ms"/>
+        <FrODO_test:involvesRecordingTime rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#rt"/>
+        <ontology:involvesChemicalSubstance rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#cs"/>
+        <ontology:involvesPerson rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#p"/>
+        <ontology:involvesWaterBody rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#wb"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#rt -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#rt"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#wb -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_test.owl#wb"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="https://w3id.org/stlab/ontology/Agent">
+        <rdfs:comment>Introduced by FrODO CQ2, not really motivated.</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/stlab/ontology/Body">
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/stlab/ontology/Water">
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/stlab/ontology/isQualityOfWaterBodyOf">
+        <rdfs:comment>The label or domain is probably wrong.</rdfs:comment>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

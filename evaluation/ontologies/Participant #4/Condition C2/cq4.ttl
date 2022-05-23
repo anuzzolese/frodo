@@ -1,0 +1,70 @@
+@prefix : <https://w3id.org/stlab/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:ContaminatedSite a owl:Class ;
+    rdfs:label "Contaminated site"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :inGeographicalArea ;
+            owl:someValuesFrom :GeographicalArea ],
+        :Site .
+
+:Recording a owl:Class ;
+    rdfs:label "Recording"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :involvesGeographicalArea ;
+            owl:someValuesFrom :GeographicalArea ],
+        [ a owl:Restriction ;
+            owl:onProperty :involvesTime ;
+            owl:someValuesFrom :Time ] .
+
+:isInGeographicalAreaOf a owl:ObjectProperty ;
+    rdfs:label "is in geographical area of"@en ;
+    rdfs:domain :GeographicalArea ;
+    rdfs:range owl:Thing .
+
+<http://semantics.istc.cnr.it/frodo-eval/margherita/cq4.ttl> a owl:Ontology .
+
+:Area a owl:Class ;
+    rdfs:label "Area"@en .
+
+:Site a owl:Class ;
+    rdfs:label "Site"@en .
+
+:inGeographicalArea a owl:ObjectProperty ;
+    rdfs:label "in geographical area"@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :GeographicalArea .
+
+:isGeographicalAreaInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is geographical area involved in" ;
+    rdfs:domain :GeographicalArea ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesGeographicalArea .
+
+:isTimeInvolvedIn a owl:ObjectProperty ;
+    rdfs:label "is time involved in" ;
+    rdfs:domain :Time ;
+    rdfs:range owl:Thing ;
+    owl:inverseOf :involvesTime .
+
+:involvesGeographicalArea a owl:ObjectProperty ;
+    rdfs:label "involves geographical area" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :GeographicalArea ;
+    owl:inverseOf :isGeographicalAreaInvolvedIn .
+
+:involvesTime a owl:ObjectProperty ;
+    rdfs:label "involves time" ;
+    rdfs:domain owl:Thing ;
+    rdfs:range :Time ;
+    owl:inverseOf :isTimeInvolvedIn .
+
+:Time a owl:Class ;
+    rdfs:label "Time" .
+
+:GeographicalArea a owl:Class ;
+    rdfs:label "Geographical area",
+        "Geographical area"@en ;
+    rdfs:subClassOf :Area .
+

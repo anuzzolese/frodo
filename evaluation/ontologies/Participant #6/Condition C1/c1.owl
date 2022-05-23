@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/manual#"
+     xml:base="http://www.semanticweb.org/manual"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/manual"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/manual/hasWaterBodyQualityParameter -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/hasWaterBodyQualityParameter">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/manual/isWaterBodyQualityParameterOf"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/manual/WaterBody"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/manual/WaterBodyQualityParameter"/>
+        <rdfs:label xml:lang="en">has water body quality parameter</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/involvesAgent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/involvesAgent">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/manual/isAgentIn"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/manual/Agent"/>
+        <rdfs:label xml:lang="en">involves agent</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/involvesLevelOfChemicalSubstance -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/involvesLevelOfChemicalSubstance">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/manual/isLevelOfChemicalSubstanceInvolvedIn"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/manual/LevelOfChemicalSubstance"/>
+        <rdfs:label xml:lang="en">involves level of chemical substance</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/involvesTime -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/involvesTime">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/manual/isTimeIn"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/manual/Time"/>
+        <rdfs:label xml:lang="en">involves time</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/involvesWaterBody -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/involvesWaterBody">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/manual/isWaterBodyIn"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/manual/WaterBody"/>
+        <rdfs:label xml:lang="en">involves water body</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/isAgentIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/isAgentIn">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/manual/Agent"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:label xml:lang="en">is agent involved in</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/isChemicalSubstanceRelatedTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/isChemicalSubstanceRelatedTo">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/manual/relatedToChemicalSubstance"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/manual/ChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/manual/LevelOfChemicalSubstance"/>
+        <rdfs:label xml:lang="en">is chemical substance related to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/isLevelOfChemicalSubstanceInvolvedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/isLevelOfChemicalSubstanceInvolvedIn">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/manual/LevelOfChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:label xml:lang="en">is level of chemical substance involved in</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/isTimeIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/isTimeIn">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/manual/Time"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:label xml:lang="en">is time involved in</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/isWaterBodyIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/isWaterBodyIn">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/manual/WaterBody"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:label xml:lang="en">is water body involved in</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/isWaterBodyQualityParameterOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/isWaterBodyQualityParameterOf">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/manual/WaterBody"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/manual/WaterBodyQualityParameter"/>
+        <rdfs:label xml:lang="en">is water body quality parameter of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/relatedToChemicalSubstance -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manual/relatedToChemicalSubstance">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/manual/LevelOfChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/manual/ChemicalSubstance"/>
+        <rdfs:label xml:lang="en">related to chemical substance</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/manual/Agent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manual/Agent">
+        <rdfs:label xml:lang="en">Agent</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/ChemicalSubstance -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manual/ChemicalSubstance">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manual/isChemicalSubstanceRelatedTo"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manual/LevelOfChemicalSubstance"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Chemical substance</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/LevelOfChemicalSubstance -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manual/LevelOfChemicalSubstance">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manual/relatedToChemicalSubstance"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manual/ChemicalSubstance"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Level of chemical substance</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/LevelOfChemicalSubstanceRecording -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manual/LevelOfChemicalSubstanceRecording">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manual/involvesAgent"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manual/Agent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manual/involvesLevelOfChemicalSubstance"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manual/LevelOfChemicalSubstance"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manual/involvesTime"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manual/Time"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manual/involvesWaterBody"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manual/WaterBody"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Level of chemical substance recording</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/Time -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manual/Time">
+        <rdfs:label xml:lang="en">Time</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/WaterBody -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manual/WaterBody">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manual/hasWaterBodyQualityParameter"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manual/WaterBodyQualityParameter"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Water body</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manual/WaterBodyQualityParameter -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manual/WaterBodyQualityParameter">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manual/isWaterBodyQualityParameterOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manual/WaterBody"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Water quality parameter</rdfs:label>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#"
+     xml:base="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasCause -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasCause"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasContaminationTime -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasContaminationTime">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#ContaminedSite"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#ContaminationTime"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasContaminedSite -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasContaminedSite">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#GeographicalArea"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#ContaminedSite"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasDiffusionRate -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasDiffusionRate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Disease"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#DiseaseDiffusionRate"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasRate -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasRate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Hospitalization"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Rate"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasSite -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasSite">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Record"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Site"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasTime -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasTime">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Record"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Time"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#locatedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#locatedIn">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Site"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#GeographicalArea"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#meaningfulCorrelation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#meaningfulCorrelation">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#DiseaseDiffusionRate"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#HospitalizationRate"/>
+        <rdfs:comment>Should be modeled with some SWRL rule considering the actual data value, something like:
+
+HospitalizationRate1 hasValue x ; hasTime t1 ; locatedIn loc1 .
+DiseaseDiffusionRate hasValue y; hasTime t1 ; locatedIn loc1 .
+
+IF HospitalizationRate1 hasValue (x+1); hasTime (t1+1); locatedIn loc1 . ^
+DiseaseDiffusionRate1 hasValue (y+1); hasTime (t1+1); locatedIn loc1 .
+THEN
+
+HospitalizationRate1 meaningfulCorrelation DiseaseDiffusionRate1 .</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#monitors -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#monitors">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Agent"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Rate"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#relatedTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#relatedTo"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#spreadingIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#spreadingIn">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Disease"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#GeographicalArea"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Agent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Agent"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#ContaminationTime -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#ContaminationTime">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Time"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#ContaminedSite -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#ContaminedSite">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Site"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasContaminationTime"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#ContaminationTime"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Disease -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Disease">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#spreadingIn"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#GeographicalArea"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#DiseaseDiffusionRate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#DiseaseDiffusionRate">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Rate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#GeographicalArea -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#GeographicalArea"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Hospitalization -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Hospitalization">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasCause"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Disease"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasTime"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#HospitalizationTime"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#HospitalizationRate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#HospitalizationRate">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Rate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#HospitalizationTime -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#HospitalizationTime">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Time"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Rate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Rate"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Record -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Record">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasSite"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Site"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#hasTime"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Time"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Site -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Site">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#locatedIn"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#GeographicalArea"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Time -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sdg/ontologies/2022/4/FrODO_manual.owl#Time"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
