@@ -110,3 +110,8 @@ a {
 a:hover {
   color: #17a2b8;
 }
+
+div#result pre {
+  border: 2px dashed darkseagreen;
+  padding: 15px
+}
