@@ -1,6 +1,7 @@
 import shortuuid
 
-FRED_ENDPOINT = 'http://semantics.istc.cnr.it/fred'
+FRED_ENDPOINT = 'http://wit.istc.cnr.it/stlab-tools/fred'
+FRED_KEY = ''
 NS = 'https://w3id.org/stlab/ontology/'
 PORT = 5555
 BASEPATH = './'

@@ -490,10 +490,11 @@ class NAryRelationMorphism(MorphismI):
 
 class Frodo:
 
-    def __init__(self, namespace, fred_uri: str, morphisms: Tuple[MorphismI] = None):
+    def __init__(self, namespace: str, fred_uri: str, fred_key: str, morphisms: Tuple[MorphismI] = None):
         self.__g: Graph = None
         self.__ns: str = namespace
         self.__fred_uri = fred_uri
+        self.__fred_key = fred_key
         self.__morphisms: Tuple[MorphismI] = morphisms if morphisms else (BinaryRelationMorphism(namespace), NAryRelationMorphism(namespace))
 
     def get_namespace(self) -> str:
@@ -508,7 +509,7 @@ class Frodo:
         if not ontology_id:
             ontology_id = self.__ns 
         
-        fredclient = FREDClient(self.__fred_uri)
+        fredclient = FREDClient(self.__fred_uri, key=self.__fred_key)
         self.__g = fredclient.execute_request(cq, FREDParameters(semantic_subgraph=False))
         ontology = Graph()
         ontology.add((URIRef(ontology_id), RDF.type, OWL.Ontology))
