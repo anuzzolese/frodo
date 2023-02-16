@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
 
 install_requires=[
+   'flask',
    'rdflib',
    'nltk',
+   'shortuuid',
    'fredclient @ git+https://github.com/anuzzolese/fredclient'
 ]
 
