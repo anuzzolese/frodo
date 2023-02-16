@@ -13,7 +13,12 @@ def index():
         print(text)
         #namespace = ''.join([webapp_conf.NS, shortuuid.uuid(text)[:8], '/'])
         namespace = webapp_conf.NS
-        frodo = Frodo(namespace, webapp_conf.FRED_ENDPOINT)
+
+        frodo = Frodo(
+            namespace=namespace,
+            fred_uri=webapp_conf.FRED_ENDPOINT,
+            fred_key=webapp_conf.FRED_KEY
+        )
         ontology = frodo.generate(text, ontology_id)
         return Response(ontology.serialize(format='text/turtle'),
             mimetype='text/turtle',
