@@ -74,7 +74,7 @@ class MorphUtils:
         else:
             add_of = True
 
-        inverse_predicate_id = 'is' + predicate_id[0:1].upper() + predicate_id[1:]
+        inverse_predicate_id = 'is' + predicate_id.capitalize()
 
         if add_of:
             inverse_predicate_id += 'Of'
@@ -118,7 +118,7 @@ class MorphUtils:
         else:
             # e.g. 'study' -> 'studying'
             gerundive = f'{lemma}ing'
-        gerundive = gerundive[0:1].upper() + gerundive[1:]
+        gerundive = gerundive.capitalize()
 
         return "".join(class_label_terms[:-1]) + gerundive
 
