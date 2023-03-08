@@ -86,7 +86,38 @@ class MorphUtils:
         class_label = MorphUtils.get_id(term)
         class_label_terms = class_label[0:1] + re.sub('([A-Z]{1})', r' \1', class_label[1:])
         class_label_terms = class_label_terms.split()
-        gerundive = MorphUtils.LEMMATIZER.lemmatize(class_label_terms[-1], 'v') + 'ing'
+
+        lemma = MorphUtils.LEMMATIZER.lemmatize(class_label_terms[-1], 'v')
+        isVowel = lambda c: c.lower() in 'aeiou'
+        isConsonant = lambda c: c.lower() not in 'aeiou'
+
+        if len(lemma) >= 3 and \
+          isVowel(lemma[-3]) and isVowel(lemma[-2]) and isConsonant(lemma[-1]):
+            # e.g. 'speak' -> 'speaking'
+            gerundive = f'{lemma}ing'
+        elif len(lemma) >= 3 and \
+          isConsonant(lemma[-3]) and isVowel(lemma[-2]) and isConsonant(lemma[-1]):
+            # TODO: Verbs of this kind whose last syllable is not stressed are not
+            # subject to a doubling of the final consonant!
+            # (e.g. 'render' -> 'rendering')
+
+            # e.g. 'run' -> 'running'
+            gerundive = f'{lemma}{lemma[-1]}ing'
+        elif lemma.endswith('ic'):
+            # e.g. panic -> panicking
+            gerundive = f'{lemma}king'
+        elif lemma.endswith('ee'):
+            # e.g. 'see' -> 'seeing'
+            gerundive = f'{lemma}ing'
+        elif lemma.endswith('ie'):
+            # e.g. 'die' -> 'dying'
+            gerundive = f'{lemma[:-2]}ying'
+        elif lemma.endswith('e'):
+            # e.g. 'make' -> 'making'
+            gerundive = f'{lemma[:-1]}ing'
+        else:
+            # e.g. 'study' -> 'studying'
+            gerundive = f'{lemma}ing'
         gerundive = gerundive[0:1].upper() + gerundive[1:]
 
         return "".join(class_label_terms[:-1]) + gerundive
