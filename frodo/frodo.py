@@ -500,7 +500,7 @@ class Frodo:
     def get_namespace(self) -> str:
         return self.__ns
 
-    def set_namesapce(self, namespace: str):
+    def set_namespace(self, namespace: str):
         self.__ns = namespace
         
     def generate(self, cq: str, ontology_id: str = None) -> Graph:
