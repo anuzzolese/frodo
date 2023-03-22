@@ -43,20 +43,21 @@ function useExample(){
 }
 
 function submit(event){
-	
+
 	event.preventDefault();
 	var endpoint = jQuery(".btn-read").attr("endpoint");
 	jQuery("#result").hide();
 	jQuery(this).parent().append('<div class="loading"><img style="width: 150px" src="' + jQuery('base').attr('href') + '/static/img/giphy.gif"/></div>');
-    
+
     data = {
 	    text: jQuery("#text").val()
     }
-    
+
     jQuery.get(endpoint, data).done(function(data){
 		jQuery(".loading").remove();
-		
-		jQuery("#result").html("<h3>Result</h3><pre>" + data + "</pre>");
+		var pre = jQuery("<pre></pre>").text(data);
+
+		jQuery("#result").html("<h3>Result</h3>").append(pre);
 		jQuery("#result").show();
 
 	});

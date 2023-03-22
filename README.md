@@ -6,7 +6,7 @@ FrODO requires Python 3. Once the source code has been downladed it is possible 
 ```
 pip install .
 ```
-Alternatively, it is possible to install the pyRML package directly from GitHub in the following way:
+Alternatively, it is possible to install the FrODO package directly from GitHub in the following way:
 ```
 pip install git+https://github.com/anuzzolese/frodo
 ```
