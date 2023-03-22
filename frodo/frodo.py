@@ -139,8 +139,8 @@ class TaxonomyMorphism(MorphismI):
     def morph(self, g: Graph) -> Graph:
         ontology = Graph()
         ontology.bind('owl', OWL)
-		ontology.bind('rdf', RDF)
-		ontology.bind('rdf', RDFS)
+        ontology.bind('rdf', RDF)
+        ontology.bind('rdf', RDFS)
 
         # Apply UPDATE queries to convert graph patterns to taxonomy axioms
         for update_query in taxonomic_queries.update:
