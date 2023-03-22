@@ -158,7 +158,7 @@ class BinaryRelationMorphism(MorphismI):
                 OPTIONAL{{
                     ?obj owl:sameAs/rdf:type ?objsameastype
                 }}
-                OPTIONAL{{ 
+                OPTIONAL{{
                     ?subjtype rdfs:subClassOf ?subtype .
                     ?subtype rdfs:subClassOf* dul:Event}}
                 FILTER(!BOUND(?subtype))
@@ -534,7 +534,7 @@ class Frodo:
             ontology += morphism.morph(self.__g)
 
         triples_to_del = []
-        for s, p, o in ontology.triples((None, RDFS.subClassOf, None)):
+        for s, _, o in ontology.triples((None, RDFS.subClassOf, None)):
             if s == o:
                 triples_to_del.append((s, RDFS.subClassOf, o))
 

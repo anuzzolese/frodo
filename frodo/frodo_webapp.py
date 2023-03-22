@@ -27,5 +27,6 @@ def index():
     else:
         return render_template("index.html", basepath=webapp_conf.BASEPATH)
 
-if __name__ == '__main__':	
+
+if __name__ == '__main__':
     myapp.run(port=webapp_conf.PORT)
