@@ -506,7 +506,7 @@ class Frodo:
 
     def __init__(self, namespace: str, fred_uri: str, fred_key: str, morphisms: Tuple[MorphismI] = None):
         self.__g: Graph = None
-        self.__ns: str = namespace
+        self.__ns: Namespace = Namespace(namespace)
         self.__fred_uri = fred_uri
         self.__fred_key = fred_key
         self.__morphisms: Tuple[MorphismI] = morphisms if morphisms else (BinaryRelationMorphism(namespace), NAryRelationMorphism(namespace))
