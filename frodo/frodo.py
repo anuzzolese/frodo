@@ -1,3 +1,4 @@
+import os
 import re
 
 from fredclient import FREDClient, FREDParameters, FREDDefaults
@@ -9,7 +10,7 @@ from rdflib.paths import evalPath, OneOrMore
 from abc import ABC, abstractmethod
 from typing import List, Dict, NoReturn, Tuple
 from rdflib.term import URIRef
-
+import frodo.taxonomic_queries as taxonomic_queries
 
 nltk.download('wordnet')
 
@@ -133,6 +134,40 @@ class MorphismI(ABC):
         pass
 
 
+class TaxonomyMorphism(MorphismI):
+
+    def morph(self, g: Graph) -> Graph:
+        ontology = Graph()
+
+        # Apply UPDATE queries to convert graph patterns to taxonomy axioms
+        for update_query in taxonomic_queries.update:
+            g = self._update_query(g, update_query)
+
+        # Apply CONSTRUCT queries to generate the ontology draft
+        for construct_query in taxonomic_queries.construct:
+            ontology += self._construct_query(g, construct_query)
+
+        return g, ontology
+
+
+    def _update_query(self, g: Graph, query_name: str):
+        sparql = taxonomic_queries.update[query_name]
+        sparql = sparql.replace('$FRED_NS', FREDDefaults.DEFAULT_FRED_NAMESPACE)
+
+        g.update(sparql)
+        return g
+
+
+    def _construct_query(self, g: Graph, query_name: str):
+        sparql = taxonomic_queries.construct[query_name]
+        sparql = sparql.replace('$FRED_NS', FREDDefaults.DEFAULT_FRED_NAMESPACE)
+        sparql = sparql.replace('$FrODO_NS', self._ns) # ontology namespace
+        sparql = sparql.replace('$LANG', 'en') # language for labels
+
+        result = g.query(sparql)
+        return result.graph
+
+
 class BinaryRelationMorphism(MorphismI):
 
     def morph(self, g: Graph) -> Graph:
@@ -223,7 +258,7 @@ class BinaryRelationMorphism(MorphismI):
                 ontology.add((restriction, OWL.someValuesFrom, object_class))
                 ontology.add((subject_class, RDFS.subClassOf, restriction))
 
-        return ontology
+        return g, ontology
 
 
 class RoleType:
@@ -499,7 +534,7 @@ class NAryRelationMorphism(MorphismI):
         for situation, digest in situations_registry.items():
             ontology += digest.formalise(self._ns)
 
-        return ontology
+        return g, ontology
 
 
 class Frodo:
@@ -509,7 +544,12 @@ class Frodo:
         self.__ns: Namespace = Namespace(namespace)
         self.__fred_uri = fred_uri
         self.__fred_key = fred_key
-        self.__morphisms: Tuple[MorphismI] = morphisms if morphisms else (BinaryRelationMorphism(namespace), NAryRelationMorphism(namespace))
+        defaultMorphisms = (
+            TaxonomyMorphism(self.__ns),
+            BinaryRelationMorphism(self.__ns),
+            NAryRelationMorphism(self.__ns)
+        )
+        self.__morphisms: Tuple[MorphismI] = morphisms if morphisms else defaultMorphisms
 
     def get_namespace(self) -> str:
         return self.__ns
@@ -531,7 +571,8 @@ class Frodo:
         ontology.bind("", Namespace(self.__ns))
 
         for morphism in self.__morphisms:
-            ontology += morphism.morph(self.__g)
+            self.__g, new_axioms = morphism.morph(self.__g)
+            ontology += new_axioms
 
         triples_to_del = []
         for s, _, o in ontology.triples((None, RDFS.subClassOf, None)):
