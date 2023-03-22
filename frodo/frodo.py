@@ -522,7 +522,7 @@ class Frodo:
             ontology_id = self.__ns
 
         fredclient = FREDClient(self.__fred_uri, key=self.__fred_key)
-        self.__g = fredclient.execute_request(cq, FREDParameters(semantic_subgraph=False))
+        self.__g = fredclient.execute_request(cq, FREDParameters(semantic_subgraph=True))
         ontology = Graph()
         ontology.add((URIRef(ontology_id), RDF.type, OWL.Ontology))
         ontology.bind("owl", Namespace('http://www.w3.org/2002/07/owl#'))
